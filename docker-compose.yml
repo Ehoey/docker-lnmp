@@ -1,0 +1,38 @@
+version: '2'
+services:
+    nginx:
+        image: nginx
+        working_dir: /usr/share/nginx/html
+        volumes: 
+            - ./nginx/html:/usr/share/nginx/html
+
+            - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+
+            - ./nginx/ca:/etc/nginx/ca
+        links: 
+            - php:PHP_ADRESS
+        ports:
+            - 80:80
+            - 443:443
+    # 由于原生 PHP 的镜像无附加 MySQL 扩展等，需自行构建
+    php:
+        # image: php:5-fpm
+        build: ./php
+        working_dir: /usr/share/nginx/html
+        volumes: 
+            - ./nginx/html:/usr/share/nginx/html
+            - ./php/php.ini:/etc/php.ini
+            - ./php/www.conf:/usr/local/etc/php-fpm.d/www.conf
+        links:
+            - mysql:MYSQL_ADRESS
+        environment:
+            MYSQL_DATABASE: test
+            MYSQL_ROOT_PASSWORD: password
+    mysql:
+        image: mysql
+        volumes: 
+            - ./mysql/my.cnf:/etc/mysql/mysql.conf.d/mysqld.cnf
+        ports: 
+            - 3306:3306
+        environment:
+            MYSQL_ROOT_PASSWORD: password
