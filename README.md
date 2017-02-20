@@ -39,7 +39,7 @@ nginx version: nginx/1.11.9
 
 Nginx 并不需要直接连接 MySQL 数据库，只需要连接 PHP 即可。
 
-因为在 Nginx 中的配置文件中需要填写 PHP 的地址，所以与 PHP 的连接中填上 PHP 的容器在 Nginx 的容器中的代称 PHP_ADRESS ，这样就能在 Nginx 容器中使用 PHP_ADRESS 来代替 PHP 的 IP 地址了。
+因为在 Nginx 中的配置文件中需要填写 PHP 的地址，所以与 PHP 的连接中填上 PHP 的容器在 Nginx 的容器中的代称 PHP_ADDRESS ，这样就能在 Nginx 容器中使用 PHP_ADDRESS 来代替 PHP 的 IP 地址了。
 
 查看容器的 IP 地址可以使用 `docker-compose exec nginx ip addr` 来查看。
 
