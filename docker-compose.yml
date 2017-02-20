@@ -5,18 +5,16 @@ services:
         working_dir: /usr/share/nginx/html
         volumes: 
             - ./nginx/html:/usr/share/nginx/html
-
             - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-
+            - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
             - ./nginx/ca:/etc/nginx/ca
         links: 
-            - php:PHP_ADRESS
+            - php:PHP_ADDRESS
         ports:
             - 80:80
             - 443:443
     # 由于原生 PHP 的镜像无附加 MySQL 扩展等，需自行构建
     php:
-        # image: php:5-fpm
         build: ./php
         working_dir: /usr/share/nginx/html
         volumes: 
@@ -24,7 +22,7 @@ services:
             - ./php/php.ini:/etc/php.ini
             - ./php/www.conf:/usr/local/etc/php-fpm.d/www.conf
         links:
-            - mysql:MYSQL_ADRESS
+            - mysql:MYSQL_ADDRESS
         environment:
             MYSQL_DATABASE: test
             MYSQL_ROOT_PASSWORD: password
