@@ -25,10 +25,11 @@ nginx version: nginx/1.11.9
 
 工作目录在 `/usr/share/nginx/html` ,这是站的根目录。
 
-主要的文件挂载有三处
+主要的文件挂载有四处
 
 - `./nginx/html:/usr/share/nginx/html` 将 `./nginx/html` 挂载到网站根目录上
 - `./nginx/nginx.conf:/etc/nginx/nginx.conf` 将 `./nginx/nginx.conf` 设置为 Nginx 的配置文件
+- `./nginx/default.conf:/etc/nginx/conf.d/default.conf` 将 `./nginx/default.conf` 设置为 Nginx 的配置文件
 - `./nginx/ca:/etc/nginx/ca` 将 `./nginx/ca` 设置为 Nginx 的证书预留目录
 
 一开始也想给日志做一个文件挂载出来，但是发现 Nginx 的日志默认输出到屏幕上，使用 `docker-compose logs nginx` 即可查看 Nginx 日志。
